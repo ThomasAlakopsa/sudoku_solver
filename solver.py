@@ -55,7 +55,7 @@ def check_valid(board, row, col, num):
 
 def check_col(board, col, num):
     for i in range(len(board)):
-        if board[i][col] == num:
+        if board[i][col] == num and col != i:
             return False
     return True
 
@@ -78,19 +78,32 @@ def check_square(board, row, col, num):
 
     for i in range(square_x*3, square_x*3+3):
         for j in range(square_y*3, square_y*3+3):
-            if board[i][j] == num:
+            if board[i][j] == num and row != i and col != j:
                 return False
     return True
 
 
+
 """ main solve function """
 
-def solve():
-    row, col = find_clear_spot(board)
-    if row != row and col != col:
-        return true
+def solve(board):
+    find = find_clear_spot(board)
+    if find:
+        row, col = find
+    else:
+        print_board(board)
+        return True
 
     for i in range(1,10):
-        print(check_valid(board, row, col, i))
+        if check_valid(board, row, col, i):
+            board[row][col] = i
+            if solve(board):
+                return True
 
-solve()
+            board[row][col] = 0
+
+    return False
+print("unsolved: ")
+print_board(board)
+print("solved")
+solve(board)
