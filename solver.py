@@ -1,14 +1,14 @@
 board = [
-        [7, 8, 0, 4, 0, 0, 1, 2, 0],
-        [6, 0, 0, 0, 7, 5, 0, 0, 9],
-        [0, 0, 0, 6, 0, 1, 0, 7, 8],
-        [0, 0, 7, 0, 4, 0, 2, 6, 0],
-        [0, 0, 1, 0, 5, 0, 9, 3, 0],
-        [9, 0, 4, 0, 6, 0, 0, 0, 5],
-        [0, 7, 0, 3, 0, 0, 0, 1, 2],
-        [1, 2, 0, 0, 0, 7, 4, 0, 0],
-        [0, 4, 9, 2, 0, 6, 0, 0, 7]
-    ]
+            [7,8,0,4,0,0,1,2,0],
+            [6,0,0,0,7,5,0,0,9],
+            [0,0,0,6,0,1,0,7,8],
+            [0,0,7,0,4,0,2,6,0],
+            [0,0,1,0,5,0,9,3,0],
+            [9,0,4,0,6,0,0,0,5],
+            [0,7,0,3,0,0,0,1,2],
+            [1,2,0,0,0,7,4,0,0],
+            [0,4,9,2,0,6,0,0,7]
+        ]
 
 """ print the board in the familiar sudoku layout """
 
@@ -43,7 +43,7 @@ def find_clear_spot(board):
 def check_valid(board, row, col, num):
     if not check_row(board, row, num):
         return False
-    if not check_col(board, col, num):
+    if not check_col(board, row, col, num):
         return False
     if not check_square(board, row, col, num):
         return False
@@ -53,9 +53,9 @@ def check_valid(board, row, col, num):
 
 """ check if the move is valid accourding too the collum """
 
-def check_col(board, col, num):
+def check_col(board, row, col, num):
     for i in range(len(board)):
-        if board[i][col] == num and col != i:
+        if board[i][col] == num and row != i:
             return False
     return True
 
@@ -103,6 +103,8 @@ def solve(board):
             board[row][col] = 0
 
     return False
+
+
 print("unsolved: ")
 print_board(board)
 print("solved")
