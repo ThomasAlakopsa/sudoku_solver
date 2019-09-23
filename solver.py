@@ -37,18 +37,21 @@ def find_clear_spot(board):
             if board[i][j] == 0:
                 return (i, j)
 
+
 """ check if the wanted move is a valid move """
 
 def check_valid(board, row, col, num):
     if not check_row(board, row, num):
         return False
-    elif not check_col(board, col, num):
+    if not check_col(board, col, num):
         return False
-    #elif not check_square(board, row, col, num):
-    #    return False
+    if not check_square(board, row, col, num):
+        return False
     else:
         return True
 
+
+""" check if the move is valid accourding too the collum """
 
 def check_col(board, col, num):
     for i in range(len(board)):
@@ -56,15 +59,31 @@ def check_col(board, col, num):
             return False
     return True
 
+
+""" check if the move is valid accourding too the row"""
+
 def check_row(board, row, num):
     for i in range(len(board[row])):
         if board[row][i] == num:
             return False
     return True
 
-#def check_square(board, row, col, num):
+
+""" check if the move is valid in the square """
+
+def check_square(board, row, col, num):
+
+    square_x = row // 3
+    square_y = col // 3
+
+    for i in range(square_x*3, square_x*3+3):
+        for j in range(square_y*3, square_y*3+3):
+            if board[i][j] == num:
+                return False
+    return True
 
 
+""" main solve function """
 
 def solve():
     row, col = find_clear_spot(board)
